@@ -1,0 +1,37 @@
+{
+  "name": "express-inventory",
+  "description": "A project to practice backend development using express and mongoDB",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "devstart": "nodemon ./bin/www",
+    "serverstart": "DEBUG=express-locallibrary-tutorial:* npm run devstart",
+    "tailwind:css": "postcss public/styles/tailwind.css -o public/styles/style.css",
+    "tailwind:watch": "postcss public/styles/tailwind.css -o -w public/styles/style.css"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^10.4.14",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "express-rate-limit": "^6.7.1",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.0.0",
+    "http-errors": "^2.0.0",
+    "luxon": "^3.3.0",
+    "mongodb": "^5.7.0",
+    "mongoose": "^7.4.0",
+    "morgan": "^1.10.0",
+    "postcss": "^8.4.26",
+    "postcss-cli": "^10.1.0",
+    "pug": "^3.0.2",
+    "tailwindcss": "^3.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
