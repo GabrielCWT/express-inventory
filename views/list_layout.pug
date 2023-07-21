@@ -1,13 +1,4 @@
 extends layout 
 
 block content 
-  if header 
-    h1=header
-  else 
-    h1=title
-
-  if list_arr 
-    ul 
-      each item in list_arr
-        li 
-          a(href=item.url) #{item.name}
+  include list.pug
