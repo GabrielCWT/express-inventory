@@ -13,8 +13,8 @@ router.get('/categories', categoryController.category_list);
 router.get('/categories/create', categoryController.category_create_get);
 router.post('/categories/create', categoryController.category_create_post);
 router.get('/categories/:id', categoryController.category_detail);
-// TODO router.get('/categories/:id/update', categoryController.category_update_get);
-// TODO router.post('/categories/:id/update', categoryController.category_update_post);
+router.get('/categories/:id/update', categoryController.category_update_get);
+router.post('/categories/:id/update', categoryController.category_update_post);
 // TODO router.get('/categories/:id/delete', categoryController.category_delete_get);
 // TODO router.post('/categories/:id/delete', categoryController.category_delete_post);
 

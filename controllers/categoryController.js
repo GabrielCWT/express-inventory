@@ -34,7 +34,7 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
 });
 
 exports.category_create_get = asyncHandler(async (req, res, next) => {
-  res.render('category_create', {
+  res.render('category_form', {
     title: 'Create Category',
   });
 });
@@ -44,12 +44,18 @@ exports.category_create_post = [
     .trim()
     .isAlpha()
     .withMessage('Needs to use letters only')
-    .escape(),
+    .escape()
+    .custom(async (name) => {
+      const category = await Category.exists({ name });
+      if (category) {
+        throw new Error('Category already exists');
+      }
+    }),
   asyncHandler(async (req, res, next) => {
     errors = validationResult(req);
     const newCategory = new Category({ name: req.body.name });
     if (!errors.isEmpty()) {
-      res.render('category_create', {
+      res.render('category_form', {
         title: 'Create Category',
         category: newCategory,
         errors: errors.array(),
@@ -57,6 +63,44 @@ exports.category_create_post = [
     } else {
       await newCategory.save();
       res.redirect(newCategory.url);
+    }
+  }),
+];
+
+exports.category_update_get = asyncHandler(async (req, res, next) => {
+  const currentCategory = await Category.findById(req.params.id);
+  res.render('category_form', {
+    title: 'Create Category',
+    category: currentCategory,
+  });
+});
+
+exports.category_update_post = [
+  body('name')
+    .trim()
+    .isAlpha()
+    .withMessage('Needs to use letters only')
+    .escape()
+    .custom(async (name) => {
+      const category = await Category.exists({ name });
+      if (category) {
+        throw new Error('Category already exists');
+      }
+    }),
+  asyncHandler(async (req, res, next) => {
+    errors = validationResult(req);
+    const newCategory = new Category({ name: req.body.name });
+    if (!errors.isEmpty()) {
+      res.render('category_form', {
+        title: 'Create Category',
+        category: newCategory,
+        errors: errors.array(),
+      });
+    } else {
+      const currentCategory = await Category.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+      });
+      res.redirect(currentCategory.url);
     }
   }),
 ];
