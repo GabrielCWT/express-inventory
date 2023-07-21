@@ -5,7 +5,10 @@ block content
   
   form(action="", method="post") 
     label(for="name") Category:  
-    input(type="text" required name='name')
+    if category 
+      input(type="text" required name='name' value= category.name)
+    else
+      input(type="text" required name='name' value='test')
     input(type="submit" value="Submit")
 
   if errors 
