@@ -1,0 +1,10 @@
+extends layout 
+
+block content 
+
+  h1=title
+  h2 $#{item.price_formatted}
+  .container
+    h3 Category: #{item.category.name}
+    h3 Total in stock: #{item.number_in_stock}
+    p= item.description 

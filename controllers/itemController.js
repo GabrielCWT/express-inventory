@@ -10,3 +10,20 @@ exports.item_list = asyncHandler(async (req, res, next) => {
     list_arr: allItems,
   });
 });
+
+exports.item_detail = asyncHandler(async (req, res, next) => {
+  const currentItem = await Item.findById(req.params.id)
+    .populate('category')
+    .exec();
+
+  if (currentItem === null) {
+    const err = new Error('No such item');
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render('item_detail', {
+    title: currentItem.name,
+    item: currentItem,
+  });
+});
