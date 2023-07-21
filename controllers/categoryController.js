@@ -26,7 +26,7 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
     return next(err);
   }
 
-  res.render('list_layout', {
+  res.render('category_detail', {
     title: currentCategory.name,
     category: currentCategory,
     list_arr: allItemsInCategory,
@@ -104,3 +104,19 @@ exports.category_update_post = [
     }
   }),
 ];
+
+exports.category_delete_get = asyncHandler(async (req, res, next) => {
+  const currentCategory = await Category.findById(req.params.id);
+  if (currentCategory === null) {
+    res.redirect('/categories');
+  }
+  res.render('delete_form', {
+    title: 'Delete Category',
+    item: currentCategory.name,
+  });
+});
+
+exports.category_delete_post = asyncHandler(async (req, res, next) => {
+  await Category.findByIdAndDelete(req.params.id);
+  res.redirect('/categories');
+});
