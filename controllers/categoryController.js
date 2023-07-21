@@ -1,3 +1,4 @@
+const { body, validationResult } = require('express-validator');
 const Category = require('../models/category');
 const Item = require('../models/item');
 
@@ -31,3 +32,31 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
     list_arr: allItemsInCategory,
   });
 });
+
+exports.category_create_get = asyncHandler(async (req, res, next) => {
+  res.render('category_create', {
+    title: 'Create Category',
+  });
+});
+
+exports.category_create_post = [
+  body('name')
+    .trim()
+    .isAlpha()
+    .withMessage('Needs to use letters only')
+    .escape(),
+  asyncHandler(async (req, res, next) => {
+    errors = validationResult(req);
+    const newCategory = new Category({ name: req.body.name });
+    if (!errors.isEmpty()) {
+      res.render('category_create', {
+        title: 'Create Category',
+        category: newCategory,
+        errors: errors.array(),
+      });
+    } else {
+      await newCategory.save();
+      res.redirect(newCategory.url);
+    }
+  }),
+];

@@ -1,0 +1,14 @@
+extends layout 
+
+block content 
+  h1 Create a new category 
+  
+  form(action="", method="post") 
+    label(for="name") Category:  
+    input(type="text" required name='name')
+    input(type="submit" value="Submit")
+
+  if errors 
+    ul
+      each error in errors 
+        li= error.msg
