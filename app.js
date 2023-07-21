@@ -1,11 +1,26 @@
+require('dotenv').config();
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const indexRouter = require('./routes/index');
+const mongoose = require('mongoose');
+
+const compression = require('compression');
+const helmet = require('helmet');
+const RateLimit = require('express-rate-limit');
 
 const app = express();
+
+// Connect to DB
+async function main() {
+  await mongoose.connect(process.env.MONGODB_URI);
+}
+
+main().catch((err) => {
+  console.log(err);
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
