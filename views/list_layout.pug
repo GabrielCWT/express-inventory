@@ -1,10 +1,13 @@
 extends layout 
 
 block content 
-  h1 Items 
+  if header 
+    h1=header
+  else 
+    h1=title
 
-  if item_list 
+  if list_arr 
     ul 
-      each item in item_list 
+      each item in list_arr
         li 
           a(href=item.url) #{item.name}
