@@ -25,7 +25,7 @@ router.post('/items/create', itemController.item_create_post);
 router.get('/items/:id', itemController.item_detail);
 router.get('/items/:id/update', itemController.item_update_get);
 router.post('/items/:id/update', itemController.item_update_post);
-// TODO router.get('/items/:id/delete', itemController.item_delete_get);
-// TODO router.post('/items/:id/delete', itemController.item_delete_post);
+router.get('/items/:id/delete', itemController.item_delete_get);
+router.post('/items/:id/delete', itemController.item_delete_post);
 
 module.exports = router;
