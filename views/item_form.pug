@@ -1,0 +1,63 @@
+extends layout 
+
+block content 
+  h1 Create a new item 
+  
+  form(action="", method="post") 
+    if item 
+      .form-group(class='my-2')
+        label(for="name") Name:  
+        input#name(type="text" required name='name' value= item.name class='bg-sky-900 rounded px-1')
+
+      .form-group(class='my-2')
+        label(for="description") Description:  
+        input#description(type="text" required name='description' value= item.description class='bg-sky-900 rounded px-1')
+
+      .form-group(class='my-2')
+        label(for="category") Category:  
+        select#category(required name='category' class='bg-sky-900 rounded px-1')
+          option(value="" class='bg-sky-900 rounded px-1') --Please choose a category--
+          each category in categories 
+            if selectedCategory == category.name 
+              option(value=category.name selected class='bg-sky-900 rounded px-1')= category.name
+            else
+              option(value=category.name class='bg-sky-900 rounded px-1')= category.name
+
+      .form-group(class='my-2')
+        label(for="price") Price:  
+        input#price(type="number" step='0.01' required name='price' value= item.price class='bg-sky-900 rounded px-1')
+
+      .form-group(class='my-2')
+        label(for="number") Number in stock:  
+        input#number(type="number" required name='number' value= item.number_in_stock class='bg-sky-900 rounded px-1')
+      
+    else
+      .form-group(class='my-2')
+        label(for="name") Name:  
+        input#name(type="text" required name='name' class='bg-sky-900 rounded px-1')
+
+      .form-group(class='my-2')
+        label(for="description") Description:  
+        input#description(type="text" required name='description' class='bg-sky-900 rounded px-1')
+
+      .form-group(class='my-2')
+        label(for="category") Category:  
+        select#category(required name='category' class='bg-sky-900 rounded px-1')
+          option(value="" class='bg-sky-900 rounded px-1') --Please choose a category--
+          each category in categories 
+            option(value=category.name class='bg-sky-900 rounded px-1')= category.name
+
+      .form-group(class='my-2')
+        label(for="price") Price:  
+        input#price(type="number" step='0.01' required name='price' class='bg-sky-900 rounded px-1')
+
+      .form-group(class='my-2')
+        label(for="number") Number in stock:  
+        input#number(type="number" required name='number' class='bg-sky-900 rounded px-1')
+
+    input(type="submit" value="Submit" class='')
+
+  if errors 
+    ul
+      each error in errors 
+        li= error.msg
