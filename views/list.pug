@@ -1,10 +1,10 @@
 if header 
-  h1=header
+  h1.text-3xl=header
 else 
-  h1=title
+  h1.text-3xl=title
 
 if list_arr 
   ul 
     each item in list_arr
-      li 
+      li(class='py-2 text-indigo-200') 
         a(href=item.url) #{item.name}

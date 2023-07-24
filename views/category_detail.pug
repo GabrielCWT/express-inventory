@@ -3,5 +3,6 @@ extends layout
 block content 
   include list.pug
 
-  a(href=`${category.url}/delete`) Delete
-  a(href=`${category.url}/update`) Update
+  div(class='flex gap-2')
+    a(href=`${category.url}/delete` class='p-2 border-2 border-cyan-800 rounded') Delete
+    a(href=`${category.url}/update` class='p-2 border-2 border-cyan-800 rounded') Update
