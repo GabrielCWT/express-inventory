@@ -13,6 +13,21 @@ const RateLimit = require('express-rate-limit');
 
 const app = express();
 
+const limiter = RateLimit({
+  windowMS: 1 * 60 * 1000,
+  max: 20,
+});
+
+app.use(limiter);
+
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      'script-src': ["'self'", 'code.jquery.com', 'cdn.jsdelivr.net'],
+    },
+  })
+);
+
 // Connect to DB
 async function main() {
   await mongoose.connect(process.env.MONGODB_URI);
@@ -30,7 +45,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// ! app.use(compression());
+app.use(compression());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routers
